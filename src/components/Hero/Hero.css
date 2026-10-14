@@ -1,0 +1,112 @@
+.hero {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    text-align: center;
+  }
+  
+  /* Replace the image in src/data/config.js → heroImage */
+  .hero-bg {
+    position: absolute;
+    inset: -6%;
+    background-image: var(--hero-img), linear-gradient(135deg, #ff9ebd 0%, #c77dff 55%, #7b5cff 100%);
+    background-size: cover;
+    background-position: center;
+    animation: kenburns 22s ease-in-out infinite alternate;
+  }
+  @keyframes kenburns {
+    from { transform: scale(1) translate(0, 0); }
+    to { transform: scale(1.12) translate(-1.5%, -1%); }
+  }
+  .hero-veil {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at center, rgba(42, 15, 51, 0.15), rgba(42, 15, 51, 0.65) 100%),
+      linear-gradient(to bottom, rgba(42, 15, 51, 0.1) 60%, var(--plum) 100%);
+  }
+  
+  .hero-content {
+    position: relative;
+    z-index: 5;
+    padding: 0 20px;
+  }
+  .hero-eyebrow {
+    margin: 0 0 12px;
+    font-size: clamp(0.7rem, 2.4vw, 0.95rem);
+    text-transform: uppercase;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+  }
+  .hero-title {
+    margin: 0;
+    font-family: var(--script);
+    font-weight: 400;
+    font-size: clamp(3.6rem, 15vw, 9rem);
+    line-height: 1.05;
+    text-shadow: 0 4px 30px rgba(42, 15, 51, 0.55), 0 0 40px rgba(255, 143, 180, 0.6);
+  }
+  .hero-title span {
+    display: inline-block;
+  }
+  
+  .hero-name {
+    margin-top: 6px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(2rem, 8vw, 4.2rem);
+    color: var(--gold);
+    text-shadow: 0 4px 24px rgba(0, 0, 0, 0.45);
+    min-height: 1.3em;
+  }
+  .hero-name-ghost { display: none; }
+  .caret {
+    display: inline-block;
+    width: 3px;
+    height: 0.9em;
+    margin-left: 6px;
+    vertical-align: -0.08em;
+    background: var(--gold);
+    animation: blink 0.9s steps(1) infinite;
+  }
+  @keyframes blink {
+    50% { opacity: 0; }
+  }
+  
+  .hero-sub {
+    margin: 22px auto 0;
+    max-width: 460px;
+    font-size: clamp(0.95rem, 3vw, 1.15rem);
+    line-height: 1.7;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+  }
+  
+  .hero-scroll {
+    position: absolute;
+    bottom: 26px;
+    left: 50%;
+    z-index: 5;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: max-content;
+    max-width: 90vw;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-align: center;
+    opacity: 0.9;
+  }
+  .hero-scroll i {
+    font-style: normal;
+    font-size: 1.8rem;
+    animation: nudge 1.6s ease-in-out infinite;
+  }
+  @keyframes nudge {
+    50% { transform: translateY(8px); }
+  }
