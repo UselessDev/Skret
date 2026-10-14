@@ -10,7 +10,7 @@ const config = {
     herName: 'My Love',
   
     // Your name – signs the letter and the ending
-    fromName: 'Your Name',
+    fromName: 'Kristel',
   
     // Hero background image. Paste a link or use "/images/hero.jpg".
     // Leave '' to use the dreamy gradient instead.
