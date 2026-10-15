@@ -1,211 +1,254 @@
 :root {
-    --rose-100: #fff0f5;
-    --rose-200: #ffd6e4;
-    --rose-300: #ffb3cd;
-    --rose-400: #ff8fb4;
-    --rose-500: #f0568a;
-    --rose-600: #c93a6e;
-    --plum: #2a0f33;
-    --plum-2: #4a1d57;
-    --gold: #ffd98e;
-    --cream: #fffaf3;
-    --ink: #5b2a45;
-  
-    --script: 'Great Vibes', cursive;
-    --serif: 'Playfair Display', Georgia, serif;
-    --hand: 'Caveat', cursive;
-    --sans: 'Quicksand', system-ui, sans-serif;
-  }
-  
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-  
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    margin: 0;
-    font-family: var(--sans);
-    color: var(--ink);
-    background: var(--plum);
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  
-  button {
-    font-family: inherit;
-  }
-  
-  .main {
-    position: relative;
-  }
-  
-  section {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  /* ---------- Floating hearts ---------- */
-  .fh {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .fh span {
-    position: absolute;
-    bottom: -40px;
-    color: var(--fh-color, rgba(255, 179, 205, 0.55));
-    animation: floatUp linear infinite;
-    text-shadow: 0 0 12px rgba(255, 143, 180, 0.5);
-  }
-  @keyframes floatUp {
-    0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
-    10% { opacity: 1; }
-    50% { transform: translate(var(--sway), -50vh) rotate(18deg); }
-    100% { transform: translate(calc(var(--sway) * -1), -110vh) rotate(-18deg); opacity: 0; }
-  }
-  
-  /* ---------- Section titles ---------- */
-  .section-title {
-    position: relative;
-    z-index: 5;
-    text-align: center;
-    padding: 0 20px;
-    margin-bottom: 36px;
-  }
-  .section-eyebrow {
-    font-size: 0.8rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    opacity: 0.8;
-  }
-  .section-title h2 {
-    font-family: var(--script);
-    font-weight: 400;
-    font-size: clamp(2.8rem, 8vw, 4.6rem);
-    margin: 6px 0 0;
-    line-height: 1.1;
-  }
-  .section-title p {
-    margin: 10px auto 0;
-    max-width: 460px;
-    opacity: 0.85;
-    line-height: 1.6;
-  }
-  .section-divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 6px;
-  }
-  .section-divider i {
-    display: block;
-    width: 70px;
-    height: 1px;
-    background: currentColor;
-    opacity: 0.4;
-  }
-  .section-divider b {
-    color: var(--rose-400);
-    animation: heartbeat 1.6s ease-in-out infinite;
-  }
-  @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.35); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.2); }
-  }
-  
-  /* ---------- Side navigation ---------- */
-  .sidenav {
-    position: fixed;
-    right: 16px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 50;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .sidenav a {
-    position: relative;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(255, 255, 255, 0.85);
-    background: transparent;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-    transition: all 0.4s;
-  }
-  .sidenav a.active {
-    background: var(--rose-400);
-    border-color: var(--rose-400);
-    transform: scale(1.4);
-  }
-  .sidenav a::after {
-    content: attr(data-label);
-    position: absolute;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 0.72rem;
-    color: #fff;
-    background: rgba(42, 15, 51, 0.8);
-    padding: 3px 9px;
-    border-radius: 99px;
-    opacity: 0;
-    pointer-events: none;
-    white-space: nowrap;
-    transition: opacity 0.3s;
-  }
-  .sidenav a:hover::after { opacity: 1; }
-  
-  /* ---------- Music ---------- */
-  .music {
-    position: fixed;
-    left: 16px;
-    bottom: 16px;
-    z-index: 50;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 0;
-    cursor: pointer;
-    color: #fff;
-    font-size: 1.2rem;
-    background: rgba(240, 86, 138, 0.85);
-    box-shadow: 0 6px 20px rgba(240, 86, 138, 0.5);
-  }
-  .music.on { animation: heartbeat 1.6s infinite; }
-  
-  /* ---------- Footer ---------- */
-  .footer {
-    text-align: center;
-    padding: 60px 20px 70px;
-    color: var(--rose-200);
-    background: #1a0922;
-  }
-  .footer p { margin: 6px 0; }
-  .footer-script {
-    font-family: var(--script);
-    font-size: clamp(2rem, 6vw, 3rem);
-    color: var(--rose-300);
-  }
-  .footer-from { font-family: var(--hand); font-size: 1.6rem; color: var(--gold); }
-  
-  @media (max-width: 600px) {
-    .sidenav { right: 8px; gap: 12px; }
-    .sidenav a::after { display: none; }
-  }
-  
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .fh span { animation-duration: 40s !important; }
-  }
+  --rose-100: #fff0f5;
+  --rose-200: #ffd6e4;
+  --rose-300: #ffb3cd;
+  --rose-400: #ff8fb4;
+  --rose-500: #f0568a;
+  --rose-600: #c93a6e;
+  --plum: #2a0f33;
+  --plum-2: #4a1d57;
+  --gold: #ffd98e;
+  --cream: #fffaf3;
+  --ink: #5b2a45;
+
+  --script: 'Great Vibes', cursive;
+  --serif: 'Playfair Display', Georgia, serif;
+  --hand: 'Caveat', cursive;
+  --sans: 'Quicksand', system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--sans);
+  color: var(--ink);
+  background: var(--plum);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+button {
+  font-family: inherit;
+}
+
+.main {
+  position: relative;
+}
+
+section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* ---------- Floating hearts ---------- */
+.fh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+.fh span {
+  position: absolute;
+  bottom: -40px;
+  color: var(--fh-color, rgba(255, 179, 205, 0.55));
+  animation: floatUp linear infinite;
+  text-shadow: 0 0 12px rgba(255, 143, 180, 0.5);
+}
+@keyframes floatUp {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: 1; }
+  50% { transform: translate(var(--sway), -50vh) rotate(18deg); }
+  100% { transform: translate(calc(var(--sway) * -1), -110vh) rotate(-18deg); opacity: 0; }
+}
+
+/* ---------- Section titles ---------- */
+.section-title {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  padding: 0 20px;
+  margin-bottom: 36px;
+}
+.section-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.section-title h2 {
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: clamp(2.8rem, 8vw, 4.6rem);
+  margin: 6px 0 0;
+  line-height: 1.1;
+}
+.section-title p {
+  margin: 10px auto 0;
+  max-width: 460px;
+  opacity: 0.85;
+  line-height: 1.6;
+}
+.section-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+.section-divider i {
+  display: block;
+  width: 70px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.4;
+}
+.section-divider b {
+  color: var(--rose-400);
+  animation: heartbeat 1.6s ease-in-out infinite;
+}
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  15% { transform: scale(1.35); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.2); }
+}
+
+/* ---------- Side navigation ---------- */
+.sidenav {
+  position: fixed;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sidenav a {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  background: transparent;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s;
+}
+.sidenav a.active {
+  background: var(--rose-400);
+  border-color: var(--rose-400);
+  transform: scale(1.4);
+}
+.sidenav a::after {
+  content: attr(data-label);
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.72rem;
+  color: #fff;
+  background: rgba(42, 15, 51, 0.8);
+  padding: 3px 9px;
+  border-radius: 99px;
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+}
+.sidenav a:hover::after { opacity: 1; }
+
+/* ---------- Music ---------- */
+.music {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 50;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.2rem;
+  background: rgba(240, 86, 138, 0.85);
+  box-shadow: 0 6px 20px rgba(240, 86, 138, 0.5);
+}
+.music.on { animation: heartbeat 1.6s infinite; }
+
+/* ---------- Footer ---------- */
+.footer {
+  text-align: center;
+  padding: 60px 20px 70px;
+  color: var(--rose-200);
+  background: #1a0922;
+}
+.footer p { margin: 6px 0; }
+.footer-script {
+  font-family: var(--script);
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: var(--rose-300);
+}
+.footer-from { font-family: var(--hand); font-size: 1.6rem; color: var(--gold); }
+
+@media (max-width: 600px) {
+  .sidenav { right: 8px; gap: 12px; }
+  .sidenav a::after { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .fh span { animation-duration: 40s !important; }
+}
+
+/* ---------- Click effects ---------- */
+.click-fx {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  pointer-events: none;
+  overflow: hidden;
+}
+.click-burst {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.click-ring {
+  position: absolute;
+  left: -8px;
+  top: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 179, 205, 0.95);
+  box-shadow: 0 0 14px rgba(255, 143, 180, 0.8);
+  animation: clickRing 0.8s ease-out forwards;
+}
+@keyframes clickRing {
+  from { transform: scale(0.4); opacity: 1; }
+  to { transform: scale(4.5); opacity: 0; }
+}
+.click-burst em {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-style: normal;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(255, 143, 180, 0.9);
+  animation: clickPop 1s cubic-bezier(0.15, 0.8, 0.3, 1) forwards;
+}
+@keyframes clickPop {
+  0% { transform: translate(-50%, -50%) scale(0.2) rotate(0); opacity: 1; }
+  60% { opacity: 1; }
+  100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy) + 30px)) scale(1) rotate(var(--rot)); opacity: 0; }
+}

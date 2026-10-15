@@ -8,11 +8,14 @@ import LoveLetter from './components/LoveLetter/LoveLetter'
 import BirthdayCake from './components/BirthdayCake/BirthdayCake'
 import SideNav from './components/common/SideNav'
 import MusicToggle from './components/common/MusicToggle'
+import ClickEffects from './components/common/ClickEffects'
 
 export default function App() {
   const [opened, setOpened] = useState(false)
 
   return (
+    <>
+    <ClickEffects />
     <AnimatePresence mode="wait">
       {!opened ? (
         <Welcome key="welcome" onOpen={() => setOpened(true)} />
@@ -38,5 +41,6 @@ export default function App() {
         </motion.main>
       )}
     </AnimatePresence>
+    </>
   )
 }

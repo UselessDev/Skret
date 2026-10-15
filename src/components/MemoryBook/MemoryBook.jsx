@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import config from '../../data/config'
 import SectionTitle from '../common/SectionTitle'
@@ -26,26 +26,48 @@ const Text = ({ memory, n }) => (
   </div>
 )
 
-/* Floating hearts + photos that appear behind the book once it is open */
+/* Floating hearts + photos that drift around behind the book once it is open */
+const SLOTS = [
+  [3, 6], [78, 4], [6, 46], [82, 44], [2, 80], [80, 78], [38, 0], [44, 86],
+]
+const rand = (min, max) => min + Math.random() * (max - min)
+
 function BookBackdrop() {
+  const [out, setOut] = useState(false) // false = tucked behind the book
+  useEffect(() => {
+    const t = setTimeout(() => setOut(true), 450)
+    return () => clearTimeout(t)
+  }, [])
+
   const items = useMemo(() => {
-    const photos = config.memories.map((m, i) => ({
-      type: 'img',
-      src: m.image,
-      left: 4 + ((i * 17) % 86),
-      top: 8 + ((i * 29) % 70),
-      size: 70 + (i % 3) * 22,
-      dur: 9 + (i % 4) * 2.5,
-      rot: (i % 2 ? 1 : -1) * (6 + i * 2),
-    }))
-    const hearts = Array.from({ length: 22 }, (_, i) => ({
+    const photos = config.memories.map((m, i) => {
+      const [left, top] = SLOTS[i % SLOTS.length]
+      return {
+        type: 'img',
+        src: m.image,
+        left,
+        top,
+        scale: rand(0.85, 1.25),
+        // wandering path (px) – the photo glides through these points and back
+        x1: rand(-90, 90), y1: rand(-70, 50),
+        x2: rand(-120, 120), y2: rand(-90, 70),
+        x3: rand(-80, 80), y3: rand(-60, 80),
+        dur: rand(16, 26),
+        bob: rand(3.5, 6),
+        rot: (i % 2 ? 1 : -1) * rand(5, 12),
+        delay: i * 0.35,
+      }
+    })
+    const hearts = Array.from({ length: 24 }, (_, i) => ({
       type: 'heart',
       sym: ['♥', '♡', '❤'][i % 3],
-      left: Math.random() * 96,
-      top: Math.random() * 92,
-      size: 14 + Math.random() * 30,
-      dur: 4 + Math.random() * 6,
-      delay: Math.random() * 3,
+      left: rand(0, 96),
+      top: rand(0, 92),
+      size: rand(14, 34),
+      x1: rand(-60, 60), y1: rand(-80, -20),
+      x2: rand(-60, 60), y2: rand(-120, -40),
+      dur: rand(7, 14),
+      delay: -rand(0, 10),
     }))
     return [...photos, ...hearts]
   }, [])
@@ -57,23 +79,31 @@ function BookBackdrop() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 1.4 }}
+      transition={{ duration: 1.2 }}
     >
       {items.map((it, i) =>
         it.type === 'img' ? (
           <div
             key={i}
-            className="bd-photo"
+            className={`bd-photo ${out ? 'out' : ''}`}
             style={{
-              left: `${it.left}%`,
-              top: `${it.top}%`,
-              width: it.size,
-              height: it.size * 1.15,
+              // starts at the centre of the book, then flies out to its own spot
+              left: out ? `${it.left}%` : 'calc(50% - var(--bd-w) / 2)',
+              top: out ? `${it.top}%` : '50%',
+              '--s': it.scale,
+              '--x1': `${it.x1}px`, '--y1': `${it.y1}px`,
+              '--x2': `${it.x2}px`, '--y2': `${it.y2}px`,
+              '--x3': `${it.x3}px`, '--y3': `${it.y3}px`,
               '--rot': `${it.rot}deg`,
+              '--bob': `${it.bob}s`,
+              '--delay': `${it.delay}s`,
               animationDuration: `${it.dur}s`,
             }}
           >
-            <img src={it.src} alt="" />
+            <div className="bd-card">
+              <img src={it.src} alt="" />
+              <span className="bd-tape" />
+            </div>
           </div>
         ) : (
           <span
@@ -83,6 +113,8 @@ function BookBackdrop() {
               left: `${it.left}%`,
               top: `${it.top}%`,
               fontSize: it.size,
+              '--x1': `${it.x1}px`, '--y1': `${it.y1}px`,
+              '--x2': `${it.x2}px`, '--y2': `${it.y2}px`,
               animationDuration: `${it.dur}s`,
               animationDelay: `${it.delay}s`,
             }}
